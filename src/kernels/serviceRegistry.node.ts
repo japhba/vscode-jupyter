@@ -13,6 +13,9 @@ import { RemoteJupyterServerMruUpdate } from './jupyter/connection/remoteJupyter
 import { ServerPreload } from './jupyter/launcher/serverPreload.node';
 import { registerTypes as registerJupyterTypes } from './jupyter/serviceRegistry.node';
 import { KernelAutoReconnectMonitor } from './kernelAutoReConnectMonitor';
+import { StateCheckpointWriter } from './checkpoint/stateCheckpointWriter';
+import { StateCheckpointReader } from './checkpoint/stateCheckpointReader';
+import { IPersistentJupyterServer, PersistentJupyterServer } from './checkpoint/persistentJupyterServer';
 import { KernelAutoRestartMonitor } from './kernelAutoRestartMonitor.node';
 import { KernelCrashMonitor } from './kernelCrashMonitor';
 import { KernelDependencyService } from './kernelDependencyService.node';
@@ -103,6 +106,9 @@ export function registerTypes(serviceManager: IServiceManager, isDevMode: boolea
         IExtensionSyncActivationService,
         KernelAutoReconnectMonitor
     );
+    serviceManager.addSingleton<IExtensionSyncActivationService>(IExtensionSyncActivationService, StateCheckpointWriter);
+    serviceManager.addSingleton<IExtensionSyncActivationService>(IExtensionSyncActivationService, StateCheckpointReader);
+    serviceManager.addSingleton<IPersistentJupyterServer>(IPersistentJupyterServer, PersistentJupyterServer);
     serviceManager.addSingleton<IExtensionSyncActivationService>(
         IExtensionSyncActivationService,
         KernelAutoRestartMonitor

@@ -100,6 +100,10 @@ export interface IJupyterSettings {
     readonly interactiveReplNotebook: boolean;
     /** Used only for debugging, logs the kernel messages */
     readonly logKernelMessages: boolean;
+    readonly persistentServer: boolean;
+    readonly checkpointEnabled: boolean;
+    readonly checkpointIntervalMs: number;
+    readonly checkpointStaleThresholdMs: number;
 }
 
 export interface IWatchableJupyterSettings extends IJupyterSettings {

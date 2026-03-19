@@ -580,6 +580,20 @@
                 "enablement": "isWorkspaceTrusted && jupyter.interactive.canInterruptNotebookKernel"
             },
             {
+                "command": "jupyter.togglePersistentServer",
+                "title": "Persistent Server: ON (click to disable)",
+                "shortTitle": "Persistent Server",
+                "category": "Jupyter",
+                "icon": "$(pass-filled)"
+            },
+            {
+                "command": "jupyter.togglePersistentServerOff",
+                "title": "Persistent Server: OFF (click to enable)",
+                "shortTitle": "Persistent Server",
+                "category": "Jupyter",
+                "icon": "$(circle-large-outline)"
+            },
+            {
                 "command": "jupyter.restartkernel",
                 "title": "%jupyter.command.jupyter.restartkernel.title%",
                 "shortTitle": "%jupyter.command.jupyter.restartkernel.shorttitle%",
@@ -869,6 +883,16 @@
                 }
             ],
             "notebook/toolbar": [
+                {
+                    "command": "jupyter.togglePersistentServer",
+                    "group": "navigation/execute@1",
+                    "when": "notebookType == 'jupyter-notebook' && config.jupyter.persistentServer"
+                },
+                {
+                    "command": "jupyter.togglePersistentServerOff",
+                    "group": "navigation/execute@1",
+                    "when": "notebookType == 'jupyter-notebook' && !config.jupyter.persistentServer"
+                },
                 {
                     "command": "jupyter.restartkernel",
                     "group": "navigation/execute@5",
@@ -1500,6 +1524,32 @@
                     "type": "number",
                     "default": 3,
                     "description": "%jupyter.configuration.jupyter.jupyterLaunchRetries.description%"
+                },
+                "jupyter.persistentServer": {
+                    "type": "boolean",
+                    "default": true,
+                    "markdownDescription": "Launch kernels on a persistent Jupyter server that survives extension host restarts (e.g. SSH reconnects). The server runs as a detached process and is reused across sessions.",
+                    "scope": "resource"
+                },
+                "jupyter.checkpointEnabled": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable periodic checkpointing of notebook state for reconnection after SSH drops.",
+                    "scope": "resource"
+                },
+                "jupyter.checkpointIntervalMs": {
+                    "type": "number",
+                    "default": 5000,
+                    "minimum": 1000,
+                    "description": "Interval in milliseconds between checkpoint writes.",
+                    "scope": "resource"
+                },
+                "jupyter.checkpointStaleThresholdMs": {
+                    "type": "number",
+                    "default": 300000,
+                    "minimum": 60000,
+                    "description": "Maximum age in milliseconds for a checkpoint to be considered valid for restore.",
+                    "scope": "resource"
                 },
                 "jupyter.jupyterCommandLineArguments": {
                     "type": "array",

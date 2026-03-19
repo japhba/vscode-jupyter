@@ -88,6 +88,10 @@ export class JupyterSettings implements IWatchableJupyterSettings {
     public enableExtendedPythonKernelCompletions: boolean = false;
     public formatStackTraces: boolean = false;
     public interactiveReplNotebook: boolean = false;
+    public persistentServer: boolean = true;
+    public checkpointEnabled: boolean = true;
+    public checkpointIntervalMs: number = 5000;
+    public checkpointStaleThresholdMs: number = 300000;
     // Privates should start with _ so that they are not read from the settings.json
     private _changeEmitter = new EventEmitter<void>();
     private _workspaceRoot: Resource;
